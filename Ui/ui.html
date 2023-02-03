@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <title>HAI MOM TALK TO NPC</title>
+</head>
+<body>
+    <div id="container">
+        <div class="npcMenu">
+            <div>
+                <div class="npcName" id="npc-name">TRUNG GÀ</div>
+            </div>
+            <div style="display: flex; justify-content: center;">
+                <div class="wrapper">
+                    <div class="menu-header">
+                        <div class="message-wrapper">
+                             <div class="menu-message left">
+                                <div class="bubble-bottom"></div>
+                                <div class="message-content">
+                                    Bạn cần giúp gì
+                                </div>
+                                <div class="message-owner">
+                                   NPC
+                                </div>
+                            </div>
+                            <div class="menu-message right">
+                                <div class="bubble-bottom"></div>
+                                <div class="message-content">
+                                    Bạn cần giúp gì
+                                </div>
+                                <div class="message-owner">
+                                   Player
+                                </div>
+                            </div> 
+                        </div>
+                    </div>
+                    <div class="menu-body">
+                        <div class="menu-element">{item.label}</div>
+                        <div class="menu-element">{item.label}</div>
+                        <div class="menu-element">{item.label}</div>
+                        <div class="menu-element">{item.label}</div> 
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    <script src="./jquery.min.js"></script>
+    <script src="./app.js"></script>
+</body>
+</html>
