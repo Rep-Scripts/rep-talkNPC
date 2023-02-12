@@ -1,11 +1,10 @@
-Core = exports['rep-core']:GetCoreObject()
-
 local NPC = {}
 local npcId = 0
 local currentNPC = nil
 local cam
 local camRotation
 local interect = false
+
 local function CreateCam()
     local px, py, pz = table.unpack(GetEntityCoords(currentNPC.npc, true))
     local x, y, z = px + GetEntityForwardX(currentNPC.npc) * 1.2, py + GetEntityForwardY(currentNPC.npc) * 1.2, pz + 0.52
@@ -40,7 +39,7 @@ local function CreateNPC(data, elements, cb)
     while not HasModelLoaded(GetHashKey(data.npc)) do
         Wait(1)
     end
-    local ped = CreatePed(4, data.npc, data.coords.x, data.coords.y, data.coords.z, data.heading, false, true)
+    local ped = CreatePed(0, GetHashKey(data.npc), data.coords.x, data.coords.y, data.coords.z, data.heading, false, true)
     SetEntityHeading(ped, data.heading)
 	SetPedFleeAttributes(ped, 0, 0)
     SetPedDiesWhenInjured(ped, false)
@@ -55,7 +54,7 @@ local function CreateNPC(data, elements, cb)
 		Wait(1)
 	end
     TaskPlayAnim(ped, data.animName, data.animDist, 8.0, 0.0, -1, 1, 0, 0, 0, 0)
-    exports['qb-target']:AddTargetEntity(ped, {
+    exports[Config.Target]:AddTargetEntity(ped, {
         options = {
                     {
                         type = "client",
@@ -63,20 +62,22 @@ local function CreateNPC(data, elements, cb)
                             talkNPC(entity)
                         end,
                         icon = "fas fa-user-friends",
-                        label = "Talk with "..data.name
+                        label = Config.Talk:format(data.name)
                     },
                 },
         distance = 3.0,
     })
-    NPC[npcId] = {
+    NPC[#NPC+1] = {
         id = npcId,
         npc = ped,
+        resource = GetInvokingResource(),
         coords = data.coords,
         name = data.name,
         startMSG = data.startMSG or 'Hello',
         elements = elements,
         cb = cb
     }
+    NPC[#NPC].cb(ped)
 end
 
 RegisterNUICallback('close', function()
@@ -92,7 +93,7 @@ end)
 
 RegisterNUICallback('click', function(data)
     SetPedTalk(currentNPC.npc)
-    currentNPC.cb(data, {
+    currentNPC.cb(currentNPC.npc ,data, {
         ['close'] = function(...)
             SetNuiFocus(false, false)
             ClearFocus()
@@ -115,6 +116,7 @@ RegisterNUICallback('click', function(data)
         end
     })
 end)
+
 
 exports('CreateNPC', function(...)
     CreateNPC(...)
@@ -139,5 +141,15 @@ CreateThread(function ()
                 })
             end
         end
+        Wait(500)
     end
+end)
+
+AddEventHandler('onClientResourceStop', function(resource)
+   for k, v in pairs(NPC) do
+        if v.resource == resource then
+            DeleteEntity(v.npc)
+            table.remove(NPC, k)
+        end
+   end
 end)
