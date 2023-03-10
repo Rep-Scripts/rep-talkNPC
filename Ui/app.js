@@ -1,14 +1,14 @@
-var nameNPC = ''
-elements = {}
+var nameNPC = '';
+let elements = {};
 $(function() {
     window.addEventListener('message', function(e) {
         var eventData = e.data;
-        if(eventData.type == 'show') {
+        if (eventData.type == 'show') {
             $("body").show();
             nameNPC = eventData.npcName;
             $("#npc-name").html(nameNPC);
-            $(".message-wrapper").empty() 
-            $(".menu-body").empty()
+            $(".message-wrapper").empty();
+            $(".menu-body").empty();
             elements = eventData.elements
             for (let i = 0; i < eventData.elements.length; i++) {
                 $(".menu-body").append('<div class="menu-element" data-event="'+ eventData.elements[i].value +'">'+ eventData.elements[i].label +'</div>')
@@ -30,8 +30,8 @@ $(function() {
 
 $(document).on('click', '.menu-element', function(e){
     e.preventDefault();
-    var id = $(this).data('event')
-    addMesage(elements[id-1].label, 'player')
+    var id = $(this).data('event');
+    addMesage(elements[id - 1].label, 'player');
     $.post('https://rep-talknpc/click',JSON.stringify({
         value: id,
     }));
@@ -39,9 +39,9 @@ $(document).on('click', '.menu-element', function(e){
 
 function addMesage(msg, from) {
     if(from == 'npc') {   
-        $(".message-wrapper").append('<div class="menu-message left"><div class="bubble-bottom"></div><div class="message-content">' + msg + '</div> <div class="message-owner">'+ nameNPC +'</div></div>')
+        $(".message-wrapper").append('<div class="menu-message left"><div class="bubble-bottom"></div><div class="message-content">' + msg + '</div> <div class="message-owner">'+ nameNPC +'</div></div>');
     } else {
-        $(".message-wrapper").append('<div class="menu-message right"><div class="bubble-bottom"></div><div class="message-content">' + msg + '</div><div class="message-owner">Player</div></div>')
+        $(".message-wrapper").append('<div class="menu-message right"><div class="bubble-bottom"></div><div class="message-content">' + msg + '</div><div class="message-owner">Player</div></div>');
     }  
 };
 
