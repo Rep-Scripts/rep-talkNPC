@@ -333,7 +333,7 @@ p {
     font-size: 2vw;
     margin: 5vw;
     text-align: left;
-    text-shadow: 0 0 .5vw #61dafb;
+    text-shadow: 0 0 .5vw #4ea7c0;
     transform: rotateY(5deg);
 }
 
@@ -342,7 +342,7 @@ p {
 }
 
 .npcMenu .menu-header .message-wrapper {
-    background-color: #61dafb;
+    background-color: #4ea7c0;
     position: relative;
 }
 
@@ -365,12 +365,13 @@ p {
     width: 60%;
     float: left;
     position: relative;
+    animation: fadeLeft .5s ease;
 }
   
 .npcMenu .menu-header .menu-message.left .bubble-bottom:before {
     content: "";
-    width: 0px;
-    height: 0px;
+    width: 0;
+    height: 0;
     position: absolute;
     border-left: 12px solid rgba(255, 255, 255, 0.171);
     border-right: 6px solid transparent;
@@ -381,13 +382,14 @@ p {
 }
   
 .npcMenu .menu-header .menu-message.right {
-    background-color: #61dafb;
+    background-color: #4ea7c0;
     margin-right: 0;
     position: relative;
     border-radius: 0.4vw;
     padding: 0.7vw;
     width: 60%;
     float: right;
+    animation: fadeRight .5s ease;
 }
   
 .npcMenu .menu-header .menu-message.right .bubble-bottom:before {
@@ -432,4 +434,26 @@ p {
     transform: rotateY(-5deg);
     display: flex;
     flex-direction: column;
+}
+
+@keyframes fadeLeft {
+    0% {
+        opacity: 0;
+        transform: translateX(-5vw);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0vw);
+    }
+}
+
+@keyframes fadeRight {
+    0% {
+        opacity: 0;
+        transform: translateX(5vw);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0vw);
+    }
 }
