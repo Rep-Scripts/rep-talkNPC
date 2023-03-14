@@ -11,17 +11,20 @@ RegisterCommand("testnpc", function()
         {label = "Bạn tên là gì", value = 1},
         {label = "Hưng bao nhiêu tuổi?", value = 2},
         {label = "Tôi có thể đấm bạn được không?", value = 3},
-    }, function(data, menu)
-        if data.value == 1 then
-            menu.addMessage({msg = "Tôi tên là Hưng. Mọi người hay gọi tôi là Hưng Ngố", from = "npc"})
-        elseif data.value == 2 then
-            menu.addMessage({msg = "Tôi 20 tuổi", from = "npc"})
-            Wait(1000)
-            menu.addMessage({msg = "Hiện tại tôi đang là một sinh viên IT", from = "npc"})
-        elseif data.value == 3 then
-            menu.addMessage({msg = "Cút đi", from = "npc"})
-            Wait(1000)
-            menu.close()
+    }, function(ped, data, menu)
+        Boss = ped -- To delete ped when source stop
+        if data then
+            if data.value == 1 then
+                menu.addMessage({msg = "Tôi tên là Hưng. Mọi người hay gọi tôi là Hưng Ngố", from = "npc"})
+            elseif data.value == 2 then
+                menu.addMessage({msg = "Tôi 20 tuổi", from = "npc"})
+                Wait(1000)
+                menu.addMessage({msg = "Hiện tại tôi đang là một sinh viên IT", from = "npc"})
+            elseif data.value == 3 then
+                menu.addMessage({msg = "Cút đi", from = "npc"})
+                Wait(1000)
+                menu.close()
+            end
         end
     end)
 end)
