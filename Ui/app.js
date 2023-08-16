@@ -14,6 +14,12 @@ $(function() {
                 $(".menu-body").append('<div class="menu-element" data-event="'+ eventData.elements[i].value +'">'+ eventData.elements[i].label +'</div>')
             }
             addMesage(eventData.msg, eventData.from)
+        } else if (eventData.type == 'updatemenu') {
+            elements = eventData.elements
+            $(".menu-body").empty();
+            for (let i = 0; i < eventData.elements.length; i++) {
+                $(".menu-body").append('<div class="menu-element" data-event="'+ eventData.elements[i].value +'">'+ eventData.elements[i].label +'</div>')
+            }
         } else if (eventData.type == 'addmsg') {
             addMesage(eventData.msg, eventData.from)
         } else if (eventData.type == 'close') {
