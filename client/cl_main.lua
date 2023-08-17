@@ -113,6 +113,12 @@ RegisterNUICallback('click', function(data)
                 msg = data.msg,
                 from = data.from,
             })
+        end,
+        ['updateMenu'] = function(data)
+            SendNUIMessage({
+                type = 'updatemenu',
+                elements = data.elements,
+            })
         end
     })
 end)
